@@ -1,142 +1,142 @@
-!DOCTYPE html
-html lang=id
-head
-  meta charset=UTF-8 
-  titleSimulasi Proyektil 2D (Dengan & Tanpa Drag)title
-  meta name=viewport content=width=device-width, initial-scale=1.0 
-  style
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Simulasi Proyektil 2D (Dengan & Tanpa Drag)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
     body {
-      margin 0;
-      font-family 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background linear-gradient(135deg, #667eea, #764ba2);
-      color #fff;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
     }
 
     header {
-      padding 20px;
-      text-align center;
+      padding: 20px;
+      text-align: center;
     }
 
     h1 {
-      margin 0;
-      font-size 2rem;
+      margin: 0;
+      font-size: 2rem;
     }
 
     .container {
-      display grid;
-      grid-template-columns 320px 1fr;
-      gap 16px;
-      padding 16px;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 16px;
+      padding: 16px;
     }
 
     .panel {
-      background rgba(255, 255, 255, 0.15);
-      backdrop-filter blur(10px);
-      border-radius 16px;
-      padding 16px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 16px;
     }
 
     .panel h2 {
-      margin-top 0;
-      font-size 1.2rem;
+      margin-top: 0;
+      font-size: 1.2rem;
     }
 
     label {
-      display block;
-      margin-top 10px;
-      font-size 0.9rem;
+      display: block;
+      margin-top: 10px;
+      font-size: 0.9rem;
     }
 
     input, select, button {
-      width 100%;
-      padding 8px;
-      margin-top 4px;
-      border-radius 8px;
-      border none;
-      font-size 0.9rem;
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      border-radius: 8px;
+      border: none;
+      font-size: 0.9rem;
     }
 
     button {
-      margin-top 14px;
-      background linear-gradient(135deg, #ff6a00, #ee0979);
-      color white;
-      font-weight bold;
-      cursor pointer;
+      margin-top: 14px;
+      background: linear-gradient(135deg, #ff6a00, #ee0979);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
     }
 
-    buttonhover {
-      opacity 0.9;
+    button:hover {
+      opacity: 0.9;
     }
 
     canvas {
-      background linear-gradient(#87ceeb, #e0f7fa);
-      border-radius 16px;
-      display block;
+      background: linear-gradient(#87ceeb, #e0f7fa);
+      border-radius: 16px;
+      display: block;
     }
 
     .info {
-      margin-top 12px;
-      font-size 0.85rem;
-      line-height 1.5;
+      margin-top: 12px;
+      font-size: 0.85rem;
+      line-height: 1.5;
     }
 
     footer {
-      text-align center;
-      padding 10px;
-      font-size 0.75rem;
-      opacity 0.8;
+      text-align: center;
+      padding: 10px;
+      font-size: 0.75rem;
+      opacity: 0.8;
     }
-  style
-head
-body
+  </style>
+</head>
+<body>
 
-header
-  h1Simulasi Proyektil 2Dh1
-  pPerbandingan Gerak Tanpa Drag vs Dengan Drag (Hambatan Udara)p
-header
+<header>
+  <h1>Simulasi Proyektil 2D</h1>
+  <p>Perbandingan Gerak Tanpa Drag vs Dengan Drag (Hambatan Udara)</p>
+</header>
 
-div class=container
-  !-- PANEL KONTROL --
-  div class=panel
-    h2Parameterh2
+<div class="container">
+  <!-- PANEL KONTROL -->
+  <div class="panel">
+    <h2>Parameter</h2>
 
-    labelMode Simulasilabel
-    select id=mode
-      option value=nodragTanpa Dragoption
-      option value=dragDengan Dragoption
-    select
+    <label>Mode Simulasi</label>
+    <select id="mode">
+      <option value="nodrag">Tanpa Drag</option>
+      <option value="drag">Dengan Drag</option>
+    </select>
 
-    labelKecepatan Awal v₀ (ms)label
-    input type=number id=v0 value=30 
+    <label>Kecepatan Awal v₀ (m/s)</label>
+    <input type="number" id="v0" value="30" />
 
-    labelSudut θ (derajat)label
-    input type=number id=angle value=45 
+    <label>Sudut θ (derajat)</label>
+    <input type="number" id="angle" value="45" />
 
-    labelMassa m (kg)label
-    input type=number id=mass value=1 
+    <label>Massa m (kg)</label>
+    <input type="number" id="mass" value="1" />
 
-    labelGravitasi g (ms²)label
-    input type=number id=gravity value=9.8 
+    <label>Gravitasi g (m/s²)</label>
+    <input type="number" id="gravity" value="9.8" />
 
-    labelKoefisien Drag blabel
-    input type=number id=drag value=0.1 step=0.01 
+    <label>Koefisien Drag b</label>
+    <input type="number" id="drag" value="0.1" step="0.01" />
 
-    button onclick=startSimulation()Mulai Simulasibutton
+    <button onclick="startSimulation()">Mulai Simulasi</button>
 
-    div class=info id=outputdiv
-  div
+    <div class="info" id="output"></div>
+  </div>
 
-  !-- KANVAS --
-  div class=panel
-    canvas id=canvas width=900 height=500canvas
-  div
-div
+  <!-- KANVAS -->
+  <div class="panel">
+    <canvas id="canvas" width="900" height="500"></canvas>
+  </div>
+</div>
 
-footer
-  Simulasi Fisika Dasar – Proyektil 2D  Siap diunggah ke GitHub Pages
-footer
+<footer>
+  Simulasi Fisika Dasar – Proyektil 2D | Siap diunggah ke GitHub Pages
+</footer>
 
-script
+<script>
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
 
@@ -153,10 +153,10 @@ script
     const b = parseFloat(document.getElementById('drag').value);
     const mode = document.getElementById('mode').value;
 
-    const angle = angleDeg  Math.PI  180;
+    const angle = angleDeg * Math.PI / 180;
 
-    let vx = v0  Math.cos(angle);
-    let vy = v0  Math.sin(angle);
+    let vx = v0 * Math.cos(angle);
+    let vy = v0 * Math.sin(angle);
 
     let x = 50;
     let y = canvas.height - 50;
@@ -175,40 +175,40 @@ script
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       drawGround();
 
-       Percepatan
+      // Percepatan
       let ax = 0;
       let ay = -g;
 
       if (mode === 'drag') {
-        ax = -(b  m)  vx;
-        ay = -g - (b  m)  vy;
+        ax = -(b / m) * vx;
+        ay = -g - (b / m) * vy;
       }
 
-       Update kecepatan
-      vx += ax  dt;
-      vy += ay  dt;
+      // Update kecepatan
+      vx += ax * dt;
+      vy += ay * dt;
 
-       Update posisi
-      x += vx  dt  5;
-      y -= vy  dt  5;
+      // Update posisi
+      x += vx * dt * 5;
+      y -= vy * dt * 5;
 
       maxHeight = Math.min(maxHeight, y);
 
-       Gambar bola
+      // Gambar bola
       ctx.beginPath();
-      ctx.arc(x, y, 10, 0, Math.PI  2);
-      ctx.fillStyle = mode === 'drag'  '#ff1744'  '#2979ff';
+      ctx.arc(x, y, 10, 0, Math.PI * 2);
+      ctx.fillStyle = mode === 'drag' ? '#ff1744' : '#2979ff';
       ctx.fill();
 
       time += dt;
 
-      if (y  canvas.height - 40) {
+      if (y < canvas.height - 40) {
         animationId = requestAnimationFrame(animate);
       } else {
         document.getElementById('output').innerHTML = `
-          bHasil Simulasibbr
-          Waktu terbang ≈ ${time.toFixed(2)} sbr
-          Jangkauan ≈ ${(x - 50).toFixed(2)} mbr
+          <b>Hasil Simulasi</b><br>
+          Waktu terbang ≈ ${time.toFixed(2)} s<br>
+          Jangkauan ≈ ${(x - 50).toFixed(2)} m<br>
           Tinggi maksimum ≈ ${((canvas.height - 50) - maxHeight).toFixed(2)} m
         `;
       }
@@ -216,7 +216,7 @@ script
 
     animate();
   }
-script
+</script>
 
-body
-html
+</body>
+</html>
